@@ -5,7 +5,7 @@ import { renderSEOTags } from "@/utils/seo-tags";
 
 export default function LeaderboardIndex() {
   const pageMeta = getPageMeta();
-  const pageTitle = generatePageTitle("Leaderboard");
+  const pageTitle = generatePageTitle("Command Grid");
 
   return (
     <>
@@ -16,4 +16,3 @@ export default function LeaderboardIndex() {
     </>
   );
 }
-
