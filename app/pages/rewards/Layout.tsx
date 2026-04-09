@@ -16,7 +16,7 @@ export default function RewardsLayout() {
       }}
       mainNavProps={{
         ...config.scaffold.mainNavProps,
-        initialMenu: "/rewards",
+        initialMenu: "/rewards/affiliate",
       }}
       footerProps={config.scaffold.footerProps}
       routerAdapter={{
@@ -28,4 +28,3 @@ export default function RewardsLayout() {
     </Scaffold>
   );
 }
-
