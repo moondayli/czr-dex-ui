@@ -40,7 +40,7 @@ export const getEvmConnectors = (): CreateConnectorFn[] => {
           description:
             getRuntimeConfig("VITE_APP_DESCRIPTION") || "Orderly Application",
           url: window.location.origin,
-          icons: [`${window.location.origin}/favicon.webp`],
+          icons: [`${window.location.origin}/favicon.png`],
         },
       })
     );

@@ -1,23 +1,30 @@
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "@orderly.network/i18n";
 import { generatePageTitle } from "@/utils/utils";
 import { Dashboard, ReferralProvider } from "@orderly.network/affiliate";
 import { getRuntimeConfig } from "@/utils/runtime-config";
+import { withBasePath } from "@/utils/base-path";
 
 export default function RewardsAffiliate() {
+  const { t } = useTranslation();
   const brokerName = getRuntimeConfig("VITE_ORDERLY_BROKER_NAME");
   const referralLinkUrl =
     typeof window !== "undefined"
       ? window.location.origin
-      : "https://orderly.network";
+      : "https://app.czrdex.com";
+  const affiliatePageUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}${withBasePath("/rewards/affiliate")}`
+      : "https://app.czrdex.com/rewards/affiliate";
 
   return (
     <>
       <Helmet>
-        <title>{generatePageTitle("Affiliate")}</title>
+        <title>{generatePageTitle(t("common.affiliate"))}</title>
       </Helmet>
       <ReferralProvider
-        becomeAnAffiliateUrl="https://orderly.network"
-        learnAffiliateUrl="https://orderly.network"
+        becomeAnAffiliateUrl={affiliatePageUrl}
+        learnAffiliateUrl={affiliatePageUrl}
         referralLinkUrl={referralLinkUrl}
         overwrite={{
           shortBrokerName: brokerName,

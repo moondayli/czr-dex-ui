@@ -34,6 +34,8 @@ interface MainNavItem {
   name: string;
   href: string;
   target?: string;
+  label?: string;
+  translationKey?: string;
 }
 
 interface ColorConfigInterface {
@@ -80,7 +82,12 @@ const ALL_MENU_ITEMS = [
     translationKey: "tradingLeaderboard.leaderboard",
   },
   { name: "Vaults", href: "/vaults", translationKey: "common.vaults" },
-  { name: "Points", href: "/points", translationKey: "tradingPoints.points" },
+  {
+    name: "Points",
+    href: "/points",
+    translationKey: "tradingPoints.points",
+    label: "CZR Points",
+  },
 ];
 
 const DEFAULT_ENABLED_MENUS = [
@@ -99,7 +106,12 @@ const DEFAULT_ENABLED_MENUS = [
     translationKey: "tradingLeaderboard.leaderboard",
   },
   { name: "Vaults", href: "/vaults", translationKey: "common.vaults" },
-  { name: "Points", href: "/points", translationKey: "tradingPoints.points" },
+  {
+    name: "Points",
+    href: "/points",
+    translationKey: "tradingPoints.points",
+    label: "CZR Points",
+  },
 ];
 
 const getCustomMenuItems = (): MainNavItem[] => {
@@ -270,7 +282,7 @@ export const useOrderlyConfig = () => {
     const customMenus = getCustomMenuItems();
 
     const translatedEnabledMenus = enabledMenus.map((menu) => ({
-      name: t(menu.translationKey),
+      name: menu.label ?? t(menu.translationKey ?? menu.name),
       href: menu.href,
     }));
 
@@ -287,7 +299,7 @@ export const useOrderlyConfig = () => {
       .map((menu) => {
         const icons = getBottomNavIcon(menu.name);
         return {
-          name: t(menu.translationKey),
+          name: menu.label ?? t(menu.translationKey ?? menu.name),
           href: menu.href,
           ...icons,
         };

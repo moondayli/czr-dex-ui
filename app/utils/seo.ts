@@ -4,6 +4,7 @@ export interface SEOConfig {
   siteName?: string;
   siteDescription?: string;
   siteUrl?: string;
+  shareImage?: string;
   language?: string;
   locale?: string;
   twitterHandle?: string;
@@ -61,6 +62,7 @@ export function getSEOConfig(): SEOConfig {
     siteName: getRuntimeConfig("VITE_SEO_SITE_NAME"),
     siteDescription: getRuntimeConfig("VITE_SEO_SITE_DESCRIPTION"),
     siteUrl: getRuntimeConfig("VITE_SEO_SITE_URL"),
+    shareImage: getRuntimeConfig("VITE_SEO_SHARE_IMAGE"),
     language: getRuntimeConfig("VITE_SEO_SITE_LANGUAGE"),
     locale: getRuntimeConfig("VITE_SEO_SITE_LOCALE"),
     twitterHandle: getRuntimeConfig("VITE_SEO_TWITTER_HANDLE"),
@@ -130,7 +132,15 @@ export function getPageMeta(): (MetaTag | LinkTag)[] {
   let metaImage;
   if (siteUrl) {
     const baseUrl = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl;
-    metaImage = `${baseUrl}/logo.webp`;
+    const shareImage = config.shareImage?.trim();
+
+    if (shareImage) {
+      metaImage = shareImage.match(/^(https?:)?\/\//)
+        ? shareImage
+        : `${baseUrl}${shareImage.startsWith("/") ? shareImage : `/${shareImage}`}`;
+    } else {
+      metaImage = `${baseUrl}/logo.webp`;
+    }
   }
 
   const metaKeywords = config.keywords;

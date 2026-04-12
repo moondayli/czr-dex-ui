@@ -1,7 +1,12 @@
 import { getRuntimeConfig } from "./runtime-config";
 
 export function generatePageTitle(title: string) {
-  return `${title} | ${getRuntimeConfig("VITE_ORDERLY_BROKER_NAME")}`;
+  const appName =
+    getRuntimeConfig("VITE_SEO_SITE_NAME") ||
+    getRuntimeConfig("VITE_APP_NAME") ||
+    getRuntimeConfig("VITE_ORDERLY_BROKER_NAME");
+
+  return `${title} | ${appName}`;
 }
 
 export function formatSymbol(symbol: string, format = "base-type") {

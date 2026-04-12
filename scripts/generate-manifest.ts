@@ -82,7 +82,7 @@ function loadConfig(): Config {
     const configText = readFileSync(configPath, "utf-8");
     const jsonText = configText
       .replace(/window\.__RUNTIME_CONFIG__\s*=\s*/, "")
-      .replace(/;$/, "")
+      .replace(/;\s*$/, "")
       .trim();
 
     const config = JSON.parse(jsonText) as Config;
@@ -117,12 +117,13 @@ function generateManifest() {
 
   console.log(`✓ Using base path: ${basePath}`);
 
-  const iconPath = withBasePath("/favicon.webp", basePath);
+  const iconPath = withBasePath("/favicon.png", basePath);
   const startUrl = withBasePath("/", basePath);
+  const appName = config.VITE_APP_NAME || "Orderly DEX";
 
   const manifest = {
-    name: config.VITE_APP_NAME || "Orderly DEX",
-    short_name: config.VITE_APP_NAME || "Orderly DEX",
+    name: appName,
+    short_name: appName,
     description:
       config.VITE_APP_DESCRIPTION ||
       "A powerful perpetual trading DEX powered by Orderly Network",
@@ -135,8 +136,8 @@ function generateManifest() {
     icons: [
       {
         src: iconPath,
-        sizes: "200x200",
-        type: "image/webp",
+        sizes: "512x512",
+        type: "image/png",
         purpose: "any maskable",
       },
     ],
@@ -150,8 +151,8 @@ function generateManifest() {
         icons: [
           {
             src: iconPath,
-            sizes: "200x200",
-            type: "image/webp",
+            sizes: "512x512",
+            type: "image/png",
           },
         ],
       },
@@ -163,8 +164,8 @@ function generateManifest() {
         icons: [
           {
             src: iconPath,
-            sizes: "200x200",
-            type: "image/webp",
+            sizes: "512x512",
+            type: "image/png",
           },
         ],
       },
