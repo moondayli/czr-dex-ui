@@ -16,14 +16,14 @@ function loadConfigTitle(): string {
     const configText = fs.readFileSync(configPath, "utf-8");
     const jsonText = configText
       .replace(/window\.__RUNTIME_CONFIG__\s*=\s*/, "")
-      .replace(/;$/, "")
+      .replace(/;\s*$/, "")
       .trim();
 
     const config = JSON.parse(jsonText);
-    return config.VITE_ORDERLY_BROKER_NAME || "Orderly Network";
+    return config.VITE_APP_NAME || config.VITE_ORDERLY_BROKER_NAME || "CZR DEX";
   } catch (error) {
     console.warn("Failed to load title from config.js:", error);
-    return "Orderly Network";
+    return "CZR DEX";
   }
 }
 

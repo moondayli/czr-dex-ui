@@ -106,6 +106,25 @@ type NavItemProps = {
 
 const NavItem: FC<NavItemProps> = ({ item, onLinkClick }) => {
   const { href, name, icon, trailing } = item;
+
+  if ("customRender" in item && typeof item.customRender === "function") {
+    return (
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={onLinkClick}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            onLinkClick?.();
+          }
+        }}
+        className="oui-flex oui-items-center oui-px-3 oui-py-4 oui-w-full hover:oui-bg-base-7"
+      >
+        {item.customRender({ name, href })}
+      </div>
+    );
+  }
+
   return (
     <Link
       to={href}

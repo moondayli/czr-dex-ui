@@ -4,6 +4,7 @@ import { TradingPageProps } from "@orderly.network/trading";
 import {
   BottomNavProps,
   FooterProps,
+  MainNavItem as MainNavItemType,
   MainNavWidgetProps,
 } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
@@ -29,6 +30,7 @@ import {
 } from "./runtime-config";
 import { Link } from "react-router-dom";
 import CustomLeftNav from "@/components/CustomLeftNav";
+import { CampaignsNavTitle } from "@/components/CampaignsNavTitle";
 
 interface MainNavItem {
   name: string;
@@ -36,6 +38,7 @@ interface MainNavItem {
   target?: string;
   label?: string;
   translationKey?: string;
+  customRender?: MainNavItemType["customRender"];
 }
 
 interface ColorConfigInterface {
@@ -81,6 +84,15 @@ const ALL_MENU_ITEMS = [
     href: "/leaderboard",
     translationKey: "tradingLeaderboard.leaderboard",
   },
+  {
+    name: "Campaigns",
+    href: "",
+    translationKey: "tradingLeaderboard.campaigns",
+    target: "_blank",
+    customRender: () => (
+      <CampaignsNavTitle title="Campaigns" />
+    ),
+  },
   { name: "Vaults", href: "/vaults", translationKey: "common.vaults" },
   {
     name: "Points",
@@ -104,6 +116,15 @@ const DEFAULT_ENABLED_MENUS = [
     name: "Leaderboard",
     href: "/leaderboard",
     translationKey: "tradingLeaderboard.leaderboard",
+  },
+  {
+    name: "Campaigns",
+    href: "",
+    translationKey: "tradingLeaderboard.campaigns",
+    target: "_blank",
+    customRender: () => (
+      <CampaignsNavTitle title="Campaigns" />
+    ),
   },
   { name: "Vaults", href: "/vaults", translationKey: "common.vaults" },
   {
@@ -284,6 +305,14 @@ export const useOrderlyConfig = () => {
     const translatedEnabledMenus = enabledMenus.map((menu) => ({
       name: menu.label ?? t(menu.translationKey ?? menu.name),
       href: menu.href,
+      target: menu.target,
+      customRender: menu.customRender
+        ? () => (
+            <CampaignsNavTitle
+              title={menu.label ?? t(menu.translationKey ?? menu.name)}
+            />
+          )
+        : undefined,
     }));
 
     const allMenuItems = [...translatedEnabledMenus, ...customMenus];

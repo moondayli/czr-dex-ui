@@ -40,7 +40,7 @@ const PointsIndex = lazy(() => import('./pages/points/Index'));
 async function loadRuntimeConfig() {
   return new Promise<void>((resolve) => {
     const script = document.createElement('script');
-    script.src = withBasePath('/config.js');
+    script.src = withBasePath(`/config.js?v=${Date.now()}`);
     script.onload = () => {
       console.log('Runtime config loaded successfully');
       resolve();
@@ -179,4 +179,3 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-

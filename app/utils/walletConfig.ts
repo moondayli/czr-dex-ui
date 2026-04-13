@@ -112,14 +112,20 @@ export const getOnboardEvmWallets = () => {
 
 export const getEvmInitialConfig = () => {
   const wallets = getOnboardEvmWallets();
+  const appName =
+    getRuntimeConfig("VITE_APP_NAME") ||
+    getRuntimeConfig("VITE_ORDERLY_BROKER_NAME") ||
+    "CZR DEX";
+  const appDescription =
+    getRuntimeConfig("VITE_APP_DESCRIPTION") || `${appName} trading app`;
 
   return wallets.length > 0
     ? {
         options: {
           wallets,
           appMetadata: {
-            name: getRuntimeConfig("VITE_ORDERLY_BROKER_NAME"),
-            description: getRuntimeConfig("VITE_ORDERLY_BROKER_NAME"),
+            name: appName,
+            description: appDescription,
           },
         },
       }

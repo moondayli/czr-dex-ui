@@ -8,10 +8,15 @@ const STATIC_ROUTES = [
   "/portfolio",
   "/portfolio/positions",
   "/portfolio/orders",
+  "/portfolio/assets",
   "/portfolio/fee",
   "/portfolio/api-key",
+  "/portfolio/history",
   "/portfolio/setting",
   "/leaderboard",
+  "/rewards",
+  "/rewards/affiliate",
+  "/vaults",
   "/swap",
   "/points",
 ];
@@ -61,6 +66,10 @@ async function clearDirectory(dir: string) {
 
 async function main() {
   const buildDir = "./build/client";
+  const packageManager = process.env.npm_config_user_agent?.startsWith("yarn")
+    ? "yarn"
+    : "npm";
+  const buildCommand = packageManager === "yarn" ? "yarn build" : "npm run build";
 
   // Get the base path from environment variable or default to '/'
   const basePath = process.env.PUBLIC_PATH || "/";
@@ -71,8 +80,8 @@ async function main() {
   await clearDirectory(buildDir);
 
   // Step 2: Run the regular build
-  console.log("\nRunning regular build...");
-  execSync("yarn build", { stdio: "inherit" });
+  console.log(`\nRunning regular build with ${packageManager}...`);
+  execSync(buildCommand, { stdio: "inherit" });
 
   const indexPath = path.join(buildDir, "index.html");
 

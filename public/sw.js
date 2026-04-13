@@ -10,12 +10,14 @@ async function initializeCacheName() {
   }
 
   try {
-    const response = await fetch('/config.js');
+    const response = await fetch(`/config.js?v=${Date.now()}`, {
+      cache: 'no-store',
+    });
     const configText = await response.text();
     
     const jsonText = configText
       .replace(/window\.__RUNTIME_CONFIG__\s*=\s*/, '')
-      .replace(/;$/, '')
+      .replace(/;\s*$/, '')
       .trim();
     
     const config = JSON.parse(jsonText);
@@ -146,4 +148,3 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-
