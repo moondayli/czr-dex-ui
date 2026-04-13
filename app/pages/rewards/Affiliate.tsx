@@ -3,7 +3,6 @@ import { useTranslation } from "@orderly.network/i18n";
 import { generatePageTitle } from "@/utils/utils";
 import { Dashboard, ReferralProvider } from "@orderly.network/affiliate";
 import { getRuntimeConfig } from "@/utils/runtime-config";
-import { withBasePath } from "@/utils/base-path";
 
 export default function RewardsAffiliate() {
   const { t } = useTranslation();
@@ -11,11 +10,7 @@ export default function RewardsAffiliate() {
   const referralLinkUrl =
     typeof window !== "undefined"
       ? window.location.origin
-      : "https://app.czrdex.com";
-  const affiliatePageUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}${withBasePath("/rewards/affiliate")}`
-      : "https://app.czrdex.com/rewards/affiliate";
+      : "https://orderly.network";
 
   return (
     <>
@@ -23,8 +18,8 @@ export default function RewardsAffiliate() {
         <title>{generatePageTitle(t("common.affiliate"))}</title>
       </Helmet>
       <ReferralProvider
-        becomeAnAffiliateUrl={affiliatePageUrl}
-        learnAffiliateUrl={affiliatePageUrl}
+        becomeAnAffiliateUrl="https://orderly.network"
+        learnAffiliateUrl="https://orderly.network"
         referralLinkUrl={referralLinkUrl}
         overwrite={{
           shortBrokerName: brokerName,
