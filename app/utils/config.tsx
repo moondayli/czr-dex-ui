@@ -4,7 +4,6 @@ import { TradingPageProps } from "@orderly.network/trading";
 import {
   BottomNavProps,
   FooterProps,
-  MainNavItem as MainNavItemType,
   MainNavWidgetProps,
 } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
@@ -30,7 +29,6 @@ import {
 } from "./runtime-config";
 import { Link } from "react-router-dom";
 import CustomLeftNav from "@/components/CustomLeftNav";
-import { CampaignsNavTitle } from "@/components/CampaignsNavTitle";
 
 interface MainNavItem {
   name: string;
@@ -38,7 +36,6 @@ interface MainNavItem {
   target?: string;
   label?: string;
   translationKey?: string;
-  customRender?: MainNavItemType["customRender"];
 }
 
 interface ColorConfigInterface {
@@ -64,7 +61,7 @@ export type OrderlyConfig = {
   };
 };
 
-const ALL_MENU_ITEMS = [
+const ALL_MENU_ITEMS: MainNavItem[] = [
   { name: "Trading", href: "/", translationKey: "common.trading" },
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
@@ -84,15 +81,6 @@ const ALL_MENU_ITEMS = [
     href: "/leaderboard",
     translationKey: "tradingLeaderboard.leaderboard",
   },
-  {
-    name: "Campaigns",
-    href: "",
-    translationKey: "tradingLeaderboard.campaigns",
-    target: "_blank",
-    customRender: () => (
-      <CampaignsNavTitle title="Campaigns" />
-    ),
-  },
   { name: "Vaults", href: "/vaults", translationKey: "common.vaults" },
   {
     name: "Points",
@@ -102,7 +90,7 @@ const ALL_MENU_ITEMS = [
   },
 ];
 
-const DEFAULT_ENABLED_MENUS = [
+const DEFAULT_ENABLED_MENUS: MainNavItem[] = [
   { name: "Trading", href: "/", translationKey: "common.trading" },
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
@@ -116,15 +104,6 @@ const DEFAULT_ENABLED_MENUS = [
     name: "Leaderboard",
     href: "/leaderboard",
     translationKey: "tradingLeaderboard.leaderboard",
-  },
-  {
-    name: "Campaigns",
-    href: "",
-    translationKey: "tradingLeaderboard.campaigns",
-    target: "_blank",
-    customRender: () => (
-      <CampaignsNavTitle title="Campaigns" />
-    ),
   },
   { name: "Vaults", href: "/vaults", translationKey: "common.vaults" },
   {
@@ -306,13 +285,6 @@ export const useOrderlyConfig = () => {
       name: menu.label ?? t(menu.translationKey ?? menu.name),
       href: menu.href,
       target: menu.target,
-      customRender: menu.customRender
-        ? () => (
-            <CampaignsNavTitle
-              title={menu.label ?? t(menu.translationKey ?? menu.name)}
-            />
-          )
-        : undefined,
     }));
 
     const allMenuItems = [...translatedEnabledMenus, ...customMenus];
