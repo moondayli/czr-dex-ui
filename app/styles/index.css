@@ -15,3 +15,8 @@
 .oui-scaffold-footer {
   display: none !important;
 }
+
+/* The points SDK hardcodes a broken external hot badge image. */
+img[src="https://oss.woo.org/static/images/sdk/pt-hot.png"] {
+  display: none !important;
+}
