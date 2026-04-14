@@ -7,7 +7,6 @@ import {
   MainNavWidgetProps,
 } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
-import { OrderlyActiveIcon, OrderlyIcon } from "../components/icons/orderly";
 import { withBasePath } from "./base-path";
 import {
   PortfolioActiveIcon,
@@ -311,23 +310,6 @@ export const useOrderlyConfig = () => {
       initialMenu: "/",
       mainMenus: allMenuItems,
     };
-
-    if (getRuntimeConfigBoolean("VITE_ENABLE_CAMPAIGNS")) {
-      mainNavProps.campaigns = {
-        name: "$ORDER",
-        href: "/rewards",
-        children: [
-          {
-            name: t("extend.staking"),
-            href: "https://app.orderly.network/staking",
-            description: t("extend.staking.description"),
-            icon: <OrderlyIcon size={14} />,
-            activeIcon: <OrderlyActiveIcon size={14} />,
-            target: "_blank",
-          },
-        ],
-      };
-    }
 
     mainNavProps.customRender = (components) => {
       return (
